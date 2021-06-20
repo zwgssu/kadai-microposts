@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only: [:index, :show]
+  before_action :require_user_logged_in, only: [:index, :show, :edit, :update]
+  before_action :correct_user, only: [:edit, :update]
   
   def index
     @pagy, @users = pagy(User.order(id: :desc), items: 25)
@@ -7,6 +8,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @pagy, @microposts = pagy(@user.microposts.order(id: :desc))
+    counts(@user)
   end
 
   def new
@@ -25,9 +28,27 @@ class UsersController < ApplicationController
     end
   end
   
+  def edit
+    @user = User.find(current_user.id)
+  end
+  
+  def update
+    @user = User.find(current_user.id)
+    
+    if @user.update(user_params)
+      flash[:success] = "編集が完了しました"
+      redirect_to @user
+    else
+      flash[:danger] = "編集に失敗しました"
+      render :edit
+    end
+  end
+  
   private
   
+  
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :age, :self_introduction)
   end
+  
 end

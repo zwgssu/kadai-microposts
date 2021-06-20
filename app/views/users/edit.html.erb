@@ -1,0 +1,29 @@
+<div class="text-center">
+  <h1>Profile edit</h1>
+</div>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+    
+    <%= form_with(model: @user) do |f| %>
+      <%= render "layouts/error_messages", model: f.object %>
+      <div class="row">
+      <div class="mb-3 col-sm-10">
+        <%= f.label :name, "Name" %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      
+      <div class="mb-3 col-sm-2">
+        <%= f.label :age, "age" %>
+        <%= f.text_field :age, class: "form-control" %>
+      </div>
+      </div>
+      
+      <div class="mb-3">
+        <%= f.label :self_introduction, "introduction" %>
+        <%= f.text_area :self_introduction, class: "form-control" %>
+      </div>
+      
+      <%= f.submit "OK", class: "btn btn-primary w-100" %>
+    <% end %>
+  </div>
+</div>
