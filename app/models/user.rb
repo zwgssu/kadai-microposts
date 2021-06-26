@@ -37,7 +37,7 @@ class User < ApplicationRecord
   end
   
   #お気に入り機能ここから
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :likes, through: :favorites, source: :micropost
   
   def favorite(other_micropost)
