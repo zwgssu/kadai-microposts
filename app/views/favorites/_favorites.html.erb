@@ -1,6 +1,6 @@
-<% if microposts.any? %>
-  <ul class="list-unstyled mt-2">
-    <% microposts.each do |micropost| %>
+<% if micropost.any? %>
+  <ul class="list-unstyled">
+    <% micropost.each do |micropost| %>
       <li class="d-flex">
         <img class="rounded me-2 mb-5" src="<%= gravatar_url(micropost.user, { size: 64}) %>" alt="">
         <div>
@@ -30,6 +30,6 @@
         </div>
       </li>
     <% end %>
-    <%== pagy_bootstrap_nav(@pagy) %>
   </ul>
+  <%== pagy_bootstrap_nav(@pagy) %>
 <% end %>
